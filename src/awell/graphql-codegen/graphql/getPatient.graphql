@@ -1,0 +1,23 @@
+query getPatient($patientId: String!) {
+  patient(id: $patientId) {
+    code
+    success
+    patient {
+      id
+      tenant_id
+      profile {
+        email
+        first_name
+        last_name
+        name
+        birth_date
+        preferred_language
+        sex
+        national_registry_number
+        patient_code
+        phone
+        mobile_phone
+      }
+    }
+  }
+}

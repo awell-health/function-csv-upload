@@ -1,0 +1,8 @@
+mutation StartPathwayWithPatientIdentifier(
+  $input: StartPathwayWithPatientIdentifierInput!
+) {
+  startPathwayWithPatientIdentifier(input: $input) {
+    pathway_id
+    patient_id # if you want to fetch awell patient id for provided identifier
+  }
+}

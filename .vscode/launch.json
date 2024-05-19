@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "Deploy Astrana FTP watcher",
+      "type": "cloudcode.cloudfunctions",
+      "request": "launch",
+      "functionName": "astrana-ftp-watcher",
+      "gen": "GEN_2",
+      "revision": "astrana-ftp-watcher-00020-geh",
+      "entryPoint": "astranaFtpWatcher",
+      "testInput": "",
+      "region": "europe-west1",
+      "runtime": "nodejs20"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+query GetPublishedPathwayDefinitions {
+  publishedPathwayDefinitions {
+    publishedPathwayDefinitions {
+      id
+      title
+      version
+      release_id
+      release_date
+      data_point_definitions {
+        # previously dataPointDefinitions
+        id
+        key
+        title
+        category
+        valueType
+        source_definition_id
+        unit
+        optional
+        range {
+          min
+          max
+        }
+        possibleValues {
+          label
+          value
+        }
+      }
+      track_definitions {
+        id
+        title
+        can_trigger_manually
+      }
+    }
+  }
+}
