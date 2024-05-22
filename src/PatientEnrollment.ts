@@ -6,7 +6,7 @@ import {
   createBaselineDatapoints,
 } from "./awell";
 import { StartPathwayInput } from "./awell/graphql-codegen/sdk";
-import { createProfile } from "PatientProfile";
+import { createProfile } from "./PatientProfile";
 
 export class PatientEnrollment {
   _client: AwellClient;
