@@ -24,6 +24,12 @@ Currently, you can either:
 1. upload a CSV directly into a storage bucket using the google cloud console, or
 2. use the `yarn run upload` script to select a csv file and a care flow.
 
+### Using the storage bucket
+
 Be sure you upload to the appropriate "folder" (the folder name should be the pathway definition ID), so the function knows which care flow to enroll your patients.
+
+### Using the `yarn run upload` script
+
+Use the `-e`/`--env-file` option (e.g. `yarn run upload -e .my.local.env` ) to specify a specific environment file.
 
 See [this page](https://awellhealth.atlassian.net/l/cp/zg0T60h7) for more instructions.

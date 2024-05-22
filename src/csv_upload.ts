@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-config();
-
+import "./script/command";
 import { uploadFile, getCareflowsForSelect, inquirerPrompt } from "./script";
 
 async function main() {
