@@ -6,7 +6,7 @@ import {
   createBaselineDatapoints,
 } from "./awell";
 import { StartPathwayInput } from "./awell/graphql-codegen/sdk";
-import { convertUSDateToISO8601, getSex } from "./csv";
+import { createProfile } from "PatientProfile";
 
 export class PatientEnrollment {
   _client: AwellClient;
@@ -113,22 +113,4 @@ export class PatientEnrollment {
       data: resp?.data?.startPathwayWithPatientIdentifier,
     });
   }
-}
-
-/**
- * Creates a profile object from a CSV row
- * @param row CSV row
- * @returns
- */
-function createProfile(row: CSVRow) {
-  return {
-    ...(row["First name"] && { first_name: row["First name"] }),
-    ...(row["Last name"] && { last_name: row["Last name"] }),
-    ...(row["Date of Birth"] && {
-      birth_date: convertUSDateToISO8601(row["Date of Birth"]),
-    }),
-    ...(row["Gender"] && { sex: getSex(row["Gender"]) }),
-    ...(row.Email && { email: row.Email }),
-    ...(row["Phone Number"] && { mobile_phone: row["Phone Number"] }),
-  };
 }
