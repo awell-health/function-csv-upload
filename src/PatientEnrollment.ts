@@ -14,12 +14,12 @@ export class PatientEnrollment {
   careflowDefinition: CareflowDefinition;
   patientId: string;
   baselineDataPoints: StartPathwayInput["data_points"];
-  patientProfile: Record<string, string>;
+  patientProfile: Record<string, any>;
 
   constructor(
     _row: CSVRow,
     careflowDefinition: CareflowDefinition,
-    client: AwellClient
+    client: AwellClient,
   ) {
     if (!_row["Patient ID"]) {
       throw new Error("Missing patient ID");
@@ -35,7 +35,7 @@ export class PatientEnrollment {
         message: `PatientEnrollment created for patient ID: ${this.patientId}`,
         baselineDataPoints: this.baselineDataPoints,
         profile: this.patientProfile,
-      })
+      }),
     );
   }
 
@@ -87,7 +87,7 @@ export class PatientEnrollment {
   createBaselineDataPoints() {
     return createBaselineDatapoints(
       this._row,
-      this.careflowDefinition.data_point_definitions ?? []
+      this.careflowDefinition.data_point_definitions ?? [],
     );
   }
 
@@ -104,7 +104,7 @@ export class PatientEnrollment {
         },
         // Only pass data points that have a value
         data_points: (this.baselineDataPoints ?? []).filter(
-          (d) => d.value !== ""
+          (d) => d.value !== "",
         ),
       },
     });
