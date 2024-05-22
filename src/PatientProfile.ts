@@ -27,6 +27,9 @@ export function createProfile(row: CSVRow) {
     }),
     ...(row["Phone Number"] && { phone: row["Phone Number"].trim() }),
     ...(row["Mobile Phone"] && { mobile_phone: row["Mobile Phone"].trim() }),
+    ...(row["National Registry Number"] && {
+      national_registry_number: row["National Registry Number"].trim(),
+    }),
     ...(!isEmpty(address) && { address }),
   };
 }
