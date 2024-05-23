@@ -17,6 +17,6 @@
     "noFallthroughCasesInSwitch": true,
     "typeRoots": ["./dist/index.d.ts", "node_modules/@types"]
   },
-  "include": ["src", "config.ts"],
+  "include": ["src"],
   "exclude": ["./tests/", "./node_modules/", "./dist/"]
 }
