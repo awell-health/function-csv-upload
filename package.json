@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node -e \"console.error('Right now one cannot test this cloud function locally. Sorry :/'); process.exit(1);\"",
-    "deploy:sandbox": "source .env && yarn run build && gcloud config set project awell-sandbox && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(cat ./.env | tr '\n' ',')",
-    "deploy:eu": "source .env && yarn run build && gcloud config set project awell-production && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(cat ./.env | tr '\n' ',')",
-    "deploy:us": "source .env && yarn run build && gcloud config set project awell-production-us && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(cat ./.env | tr '\n' ',')",
+    "deploy:sandbox": "source .env && yarn run build && gcloud config set project awell-sandbox && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS=' ./.env | tr '\n' ',')",
+    "deploy:eu": "source .env && yarn run build && gcloud config set project awell-production && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env | tr '\n' ',')",
+    "deploy:us": "source .env && yarn run build && gcloud config set project awell-production-us && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env  | tr '\n' ',')",
     "build": "tsc",
     "test": "jest",
     "codegen": "graphql-codegen --config ./graphql-codegen.ts",
