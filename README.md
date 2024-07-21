@@ -4,7 +4,7 @@ Read files from a cloud storage bucket and use them to enroll a list of patients
 
 ![Using the CSV upload script](./csv-upload-script.gif "Using the CSV upload script")
 
-## Using this repository
+## Using this repository - NodeJS
 
 1. yarn install
 2. copy `.env.example` to `.env`
@@ -33,3 +33,14 @@ Be sure you upload to the appropriate "folder" (the folder name should be the pa
 Use the `-e`/`--env-file` option (e.g. `yarn run upload -e .my.local.env` ) to specify a specific environment file.
 
 See [this page](https://awellhealth.atlassian.net/l/cp/zg0T60h7) for more instructions.
+
+## Using this repository - Python
+
+1. `python3.12 -m venv ./python/venv`
+2. Make sure you have an .env file (similar to above) with base64 encoded service account credentials to upload to a cloud storage bucket
+3. add files to a folder (e.g. `./python/test-files`)
+4. run the following script:
+
+```bash
+$ FILE_DIRECTORY="./python/test-files" PATHWAY_DEFINITION_ID="<your pathway definition id>" python ./python/main.py
+```

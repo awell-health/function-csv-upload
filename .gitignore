@@ -7,3 +7,11 @@ tmp
 .DS_STORE
 *.local.*
 *.csv
+
+
+# python
+python/venv/
+python/.venv/
+__pycache__
+*.pyc
+python/test-files/

@@ -1,4 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cloudcode.project": "awell-sandbox"
+  "python.defaultInterpreterPath": "./python/venv/bin/python"
 }
