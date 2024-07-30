@@ -17,16 +17,15 @@ cloudEvent(CLOUD_EVENT_NAME, async (cloudEvent: CloudEvent<File>) => {
 
   const client = new AwellClient(AWELL_CONFIG);
   try {
-    const publishedCareflow = await client.getPublishedCareflow(
-      pathwayDefinitionId
-    );
+    const publishedCareflow =
+      await client.getPublishedCareflow(pathwayDefinitionId);
     const rows = await readCsvFile(file.name);
     for await (const _row of rows) {
       try {
         const patientToEnroll = new PatientEnrollment(
           _row,
           publishedCareflow,
-          client
+          client,
         );
         await patientToEnroll.syncPatient();
         await patientToEnroll.enrollPatient();

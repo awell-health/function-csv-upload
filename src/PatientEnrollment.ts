@@ -30,13 +30,11 @@ export class PatientEnrollment {
     this.patientId = _row["Patient ID"];
     this.patientProfile = createProfile(_row);
     this.baselineDataPoints = this.createBaselineDataPoints();
-    console.log(
-      JSON.stringify({
-        message: `PatientEnrollment created for patient ID: ${this.patientId}`,
-        baselineDataPoints: this.baselineDataPoints,
-        profile: this.patientProfile,
-      }),
-    );
+    console.log({
+      message: `PatientEnrollment created for patient ID: ${this.patientId}`,
+      baselineDataPoints: this.baselineDataPoints,
+      profile: this.patientProfile,
+    });
   }
 
   /**

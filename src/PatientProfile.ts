@@ -1,6 +1,15 @@
 import { CSVRow } from "./types";
 import { convertUSDateToISO8601, getSex } from "./csv";
-import { isEmpty } from "lodash";
+import { isEmpty, isNil } from "lodash";
+
+const isMaybeValidPhone = (phone?: string): phone is string => {
+  return (
+    !isNil(phone) &&
+    typeof phone === "string" &&
+    !isEmpty(phone) &&
+    phone.startsWith("+")
+  );
+};
 /**
  * Creates a profile object from a CSV row
  * @param row CSV row
@@ -25,7 +34,9 @@ export function createProfile(row: CSVRow) {
     ...(row["Preferred Language"] && {
       preferred_language: row["Preferred Language"].toLowerCase(),
     }),
-    ...(row["Phone Number"] && { phone: row["Phone Number"].trim() }),
+    ...(isMaybeValidPhone(row["Phone Number"]) && {
+      phone: row["Phone Number"].trim(),
+    }),
     ...(row["Mobile Phone"] && { mobile_phone: row["Mobile Phone"].trim() }),
     ...(row["National Registry Number"] && {
       national_registry_number: row["National Registry Number"].trim(),
