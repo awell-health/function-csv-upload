@@ -5,9 +5,11 @@
 
 export type PatientProfile = {
   "Patient ID"?: string;
+  "Patient Name"?: string;
   "First name"?: string;
   "Last name"?: string;
   "Date of Birth"?: string;
+  "DOB"?: string
   Gender?: string;
   Email?: string;
   "Phone Number"?: string;

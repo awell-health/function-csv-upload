@@ -1,4 +1,3 @@
-import { parseISO } from "date-fns";
 import { CSVRow } from "../types";
 import {
   DataPointDefinition,
@@ -6,6 +5,7 @@ import {
   BaselineInfoInput,
 } from "./graphql-codegen/sdk";
 import { isEmpty, isNil } from "lodash";
+import { parseISO } from "date-fns";
 
 export function createBaselineDatapoints(
   row: CSVRow,
@@ -22,16 +22,30 @@ export function createBaselineDatapoints(
         return null;
       }
 
-      if (valueType === DataPointValueType.Date) {
-        return {
-          data_point_definition_id,
-          value: parseISO(value),
-        };
-      } else {
-        return {
-          data_point_definition_id,
-          value,
-        };
+      switch (valueType) {
+        case DataPointValueType.Date:
+          return {
+            data_point_definition_id,
+            value: parseISO(value).toISOString(),
+          };
+        case DataPointValueType.Telephone:
+          if (!value.startsWith("+1")) {
+            return {
+              data_point_definition_id,
+              value: `+1${value}`,
+            };
+          // we don't technically need this else statement, but it's here for clarity
+          } else {
+            return {
+              data_point_definition_id,
+              value,
+            };
+          }
+        default:
+          return {
+            data_point_definition_id,
+            value,
+          };
       }
     },
   );
