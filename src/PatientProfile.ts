@@ -1,6 +1,7 @@
 import { CSVRow } from "./types";
 import { convertUSDateToISO8601, getSex, makePatientName } from "./csv";
 import { isEmpty, isNil } from "lodash";
+import logger from "./logger"
 
 const isMaybeValidPhone = (phone?: string): phone is string => {
   return (
@@ -40,7 +41,7 @@ export function createProfile(row: CSVRow) {
     }
     default: {
       // do nothing
-      console.log("No patient name found")
+      logger.info("No patient name found")
     }
   }
 

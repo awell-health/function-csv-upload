@@ -8,10 +8,12 @@
     "deploy:sandbox": "source .env && yarn run build && gcloud config set project awell-sandbox && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS=' ./.env | tr '\n' ',')",
     "deploy:eu": "source .env && yarn run build && gcloud config set project awell-production && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env | tr '\n' ',')",
     "deploy:us": "source .env && yarn run build && gcloud config set project awell-production-us && gcloud functions deploy $CLOUD_FUNCTION_NAME --gen2 --trigger-bucket=$STORAGE_BUCKET_NAME --trigger-location=us --runtime=nodejs20 --region us-central1 --entry-point=$CLOUD_EVENT_NAME --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env  | tr '\n' ',')",
+    "deploy:local": "source .env && yarn run build && gcloud alpha functions local deploy csv-upload --entry-point=$CLOUD_EVENT_NAME --runtime=nodejs20 --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env  | tr '\n' ',')",
+    "trigger:local": "source .env && gcloud alpha functions local call csv-upload --data='{\"bucket\": \"$STORAGE_BUCKET_NAME\", \"name\": \"test-file.csv\"}'",
     "build": "tsc",
     "test": "jest",
     "codegen": "graphql-codegen --config ./graphql-codegen.ts",
-    "upload": "ts-node ./src/csv_upload.ts"
+    "upload": "source .env && ts-node ./src/csv_upload.ts"
   },
   "author": "Awell",
   "dependencies": {
@@ -22,7 +24,8 @@
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "pino": "^9.3.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",

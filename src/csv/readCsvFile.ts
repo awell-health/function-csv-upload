@@ -3,6 +3,7 @@ import { CSVRow } from "../types";
 import { Storage } from "@google-cloud/storage";
 import csv from "csv-parser";
 import { Readable } from "stream";
+import logger from "../logger"
 
 export const readCsvFile = async (filePath: string): Promise<CSVRow[]> => {
   const storage = new Storage();
@@ -19,7 +20,7 @@ export const readCsvFile = async (filePath: string): Promise<CSVRow[]> => {
       .pipe(csv())
       .on("data", (data) => results.push(data))
       .on("end", () => {
-        console.log("CSV file successfully processed");
+        logger.info("CSV file successfully processed");
         resolve(results);
       })
       .on("error", (error) => reject(error));

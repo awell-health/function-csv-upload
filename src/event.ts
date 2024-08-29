@@ -2,25 +2,25 @@ import { CloudEvent } from "@google-cloud/functions-framework";
 import { ProcessingStatus } from "./types";
 import { type File, Storage } from "@google-cloud/storage";
 import { STORAGE_BUCKET_NAME } from "./config";
-
+import logger from './logger'
 export function validateEvent(cloudEvent: CloudEvent<File>) {
   /**
    * -------------------------------------------------
    * Initial validation
    */
   const { data: file, ...rest } = cloudEvent;
-  console.log(`Received Event: ${JSON.stringify(rest)}`);
+  logger.debug(`Received Event: ${JSON.stringify(rest)}`);
   if (!file) {
-    console.warn("No file provided");
+    logger.warn("No file provided");
     return {};
   }
   const { pathwayDefinitionId, fileName } = validateFile(file);
   if (Object.values(ProcessingStatus).includes(fileName as ProcessingStatus)) {
-    console.log("file already processed");
+    logger.debug("file already processed");
     return {};
   }
   if (!pathwayDefinitionId || !fileName) {
-    console.error("Invalid file name", file.name);
+    logger.error({ message: "Invalid file name", fileName: file.name});
     return {};
   }
   /**
@@ -39,7 +39,7 @@ export function validateFile(file: File): {
 } {
   const [pathwayDefinitionId, fileName] = file.name.split("/");
 
-  console.log({
+  logger.info({
     message: "Examining file for pathway definition ID",
     fileOrFolder: fileName,
     pathwayDefinitionId,

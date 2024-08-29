@@ -1,5 +1,6 @@
 import { program } from "commander";
 import { config } from "dotenv";
+import logger from "../logger"
 
 program
   .name("upload-csv")
@@ -14,6 +15,6 @@ program.option(
 
 program.parse(process.argv);
 const { envFile } = program.opts();
-console.log(`Running upload with env file: ${envFile}`);
+logger.info(`Running upload with env file: ${envFile}`);
 
 config({ path: envFile });

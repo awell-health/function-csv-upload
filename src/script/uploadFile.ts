@@ -1,6 +1,7 @@
 import { Storage } from "@google-cloud/storage";
 import { STORAGE_BUCKET_NAME } from "../config";
 import { isEmpty } from "lodash";
+import logger from "../logger"
 
 const b64creds = process.env.GOOGLE_APPLICATION_CREDENTIALS ?? "";
 if (isEmpty(b64creds)) {
@@ -22,5 +23,5 @@ export async function uploadFile(
   await storage.bucket(STORAGE_BUCKET_NAME).upload(fileName, {
     destination: file,
   });
-  console.log(`${fileName} uploaded to ${STORAGE_BUCKET_NAME}.`);
+  logger.info(`${fileName} uploaded to ${STORAGE_BUCKET_NAME}.`);
 }

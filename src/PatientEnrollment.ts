@@ -7,6 +7,7 @@ import {
 } from "./awell";
 import { StartPathwayInput } from "./awell/graphql-codegen/sdk";
 import { createProfile } from "./PatientProfile";
+import logger from './logger'
 
 export class PatientEnrollment {
   _client: AwellClient;
@@ -30,8 +31,9 @@ export class PatientEnrollment {
     this.patientId = _row["Patient ID"];
     this.patientProfile = createProfile(_row);
     this.baselineDataPoints = this.createBaselineDataPoints();
-    console.log({
+    logger.info({
       message: `PatientEnrollment created for patient ID: ${this.patientId}`,
+      patientId: this.patientId,
       baselineDataPoints: this.baselineDataPoints,
       profile: this.patientProfile,
     });
@@ -76,7 +78,7 @@ export class PatientEnrollment {
         },
       });
     }
-    console.log({ message: `patient ${this.patientId} synced` });
+    logger.info({ message: `patient ${this.patientId} synced` });
   }
 
   /**
@@ -106,7 +108,7 @@ export class PatientEnrollment {
         ),
       },
     });
-    console.log({
+    logger.info({
       message: `patient ${this.patientId} pathway started for pathway_definition_id: ${this.careflowDefinition.id}`,
       data: resp?.data?.startPathwayWithPatientIdentifier,
     });

@@ -1,15 +1,16 @@
 import "./script/command";
 import { uploadFile, getCareflowsForSelect, inquirerPrompt } from "./script";
+import logger from './logger'
 
 async function main() {
   const careflows = await getCareflowsForSelect();
   const { fileName, pathwayDefinitionId } = await inquirerPrompt(careflows);
   if (pathwayDefinitionId === "-1") {
-    console.log("Exiting...");
+    logger.info("Exiting...");
     return;
   }
   await uploadFile(fileName, pathwayDefinitionId);
-  console.log("Complete");
+  logger.info("Complete");
 }
 
 void main()
@@ -17,6 +18,6 @@ void main()
     process.exit(0);
   })
   .catch((err) => {
-    console.error(err);
+    logger.error(err);
     process.exit(1);
   });
