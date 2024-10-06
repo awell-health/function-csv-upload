@@ -7,9 +7,9 @@ Read files from a cloud storage bucket and use them to enroll a list of patients
 ## Using this repository - NodeJS
 
 1. yarn install
-2. copy `.env.example` to `.env`
+2. copy `.env.example` to `.env.{sandbox | us | eu}.local`
 3. fill in the environment variables
-4. run `yarn run build && yarn run deploy:<env>`, where `<env>` is the environment you wish to deploy.
+4. run `yarn run build && yarn deploy <envfile>`, where `<env>` is the environment you wish to deploy.
 
 _Note: this function can only be deployed by someone with appropriate IAM permissions. Non-awell staff are welcome to use this repository to deploy to their own GCP project._
 

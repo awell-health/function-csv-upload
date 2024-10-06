@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node ./src/test.local.ts",
     "deploy": "sh ./scripts/deploy.sh",
-    "deploy:local": "source .env && yarn run build && gcloud alpha functions local deploy csv-upload --entry-point=$CLOUD_EVENT_NAME --runtime=nodejs20 --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env  | tr '\n' ',')",
+    "deploy:local": "source .env && yarn build && gcloud alpha functions local deploy csv-upload --entry-point=$CLOUD_EVENT_NAME --runtime=nodejs20 --source=. --set-env-vars=$(grep -v '^GOOGLE_APPLICATION_CREDENTIALS' ./.env  | tr '\n' ',')",
     "trigger:local": "source .env && gcloud alpha functions local call csv-upload --data='{\"bucket\": \"$STORAGE_BUCKET_NAME\", \"name\": \"test-file.csv\"}'",
     "build": "tsc",
     "test": "jest",
