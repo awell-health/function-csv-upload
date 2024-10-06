@@ -5,12 +5,12 @@ import csv from "csv-parser";
 import { Readable } from "stream";
 import logger from "../logger"
 
-export const readCsvFile = async (filePath: string): Promise<CSVRow[]> => {
+export const readCsvFile = async (filePath: string, storageBucketName?: string): Promise<CSVRow[]> => {
   const storage = new Storage();
 
   const results: Array<CSVRow> = [];
   const fileContents = await storage
-    .bucket(STORAGE_BUCKET_NAME)
+    .bucket(storageBucketName ?? STORAGE_BUCKET_NAME)
     .file(filePath)
     .download();
   const [file] = fileContents;

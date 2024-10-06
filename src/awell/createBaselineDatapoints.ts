@@ -6,6 +6,7 @@ import {
 } from "./graphql-codegen/sdk";
 import { isEmpty, isNil } from "lodash";
 import { parseISO } from "date-fns";
+import logger from "../logger";
 
 export function createBaselineDatapoints(
   row: CSVRow,
@@ -20,6 +21,26 @@ export function createBaselineDatapoints(
       }
       if (isNil(value) || isEmpty(value)) {
         return null;
+      }
+
+      if (process.env.CUSTOM_DIAGNOSIS_DATAPOINT) {
+        if (title === "Diagnosis") {
+          logger.debug({message: "Diagnosis value", value, data_point_definition_id})
+          try {
+            const updatedValue = value.replace(/'([^']+)'/g, '\"$1\"')
+            logger.debug({ message: "updated value", updatedValue })
+            return {
+              data_point_definition_id,
+              value: updatedValue,
+            };
+          } catch (e) {
+            logger.error({
+              message: "Error parsing diagnosis value",
+              error: e,
+              value,
+            })
+          }
+        }
       }
 
       switch (valueType) {

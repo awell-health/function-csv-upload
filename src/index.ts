@@ -31,6 +31,7 @@ cloudEvent(CLOUD_EVENT_NAME, async (cloudEvent: CloudEvent<File>) => {
         );
         await patientToEnroll.syncPatient();
         await patientToEnroll.enrollPatient();
+        await Promise.resolve(setTimeout(() => {}, 100));
       } catch (err) {
         logger.error({ message: "Error when processing row", err, _row });
       }
