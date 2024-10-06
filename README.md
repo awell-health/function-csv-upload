@@ -17,6 +17,15 @@ _Note: this function can only be deployed by someone with appropriate IAM permis
 
 Make sure you have the `gcloud` cli installed and you're authenticated with an account that's allowed to deploy cloud functions.
 
+## Provisioning buckets and users
+
+There are a couple of scripts that can be used to create buckets and provision users.
+
+```bash
+$ sh ./scripts/create-bucket.sh <my_environment_file>
+$ sh ./scripts/provision-user.sh <my_environment_file> <email_address>
+```
+
 ## Uploading csv files
 
 Currently, you can either:
